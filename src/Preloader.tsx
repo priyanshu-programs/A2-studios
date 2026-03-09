@@ -36,10 +36,10 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
     if (phase === 'done') return null;
 
     return (
-        <div className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black gap-4">
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-off-black">
             {/* BRAND TEXT */}
-            <motion.h1
-                className="text-white font-coolvetica-heavy text-4xl tracking-widest"
+            <motion.div
+                className="absolute text-off-white font-coolvetica-heavy text-4xl flex justify-between w-[300px] top-[calc(50%-60px)] left-1/2 -translate-x-1/2"
                 animate={
                     phase === 'start' || phase === 'loading'
                         ? { opacity: 1, scale: 1 }
@@ -47,29 +47,31 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
                 }
                 transition={{ duration: 0.5, ease: "easeOut" }}
             >
-                ATWO STUDIOS
-            </motion.h1>
+                {"ATWO STUDIOS".split('').map((char, i) => (
+                    <span key={i}>{char === ' ' ? '\u00A0' : char}</span>
+                ))}
+            </motion.div>
 
             {/* THE LOADING BAR CONTAINER (Outlined Box) */}
             <motion.div
                 className="overflow-hidden flex items-center"
                 initial={{
                     width: 300,
-                    height: 40,
-                    padding: 4,
+                    height: 24,
+                    padding: 2,
                     borderWidth: 2,
-                    borderColor: 'rgba(255, 255, 255, 1)',
-                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    borderColor: 'rgba(245, 245, 240, 1)',
+                    backgroundColor: 'rgba(26, 26, 26, 0)',
                 }}
                 animate={
                     phase === 'start' || phase === 'loading'
                         ? {
                             width: 300,
-                            height: 40,
-                            padding: 4,
+                            height: 24,
+                            padding: 2,
                             borderWidth: 2,
-                            borderColor: 'rgba(255, 255, 255, 1)',
-                            backgroundColor: 'rgba(0, 0, 0, 0)', // Keeps it transparent initially
+                            borderColor: 'rgba(245, 245, 240, 1)',
+                            backgroundColor: 'rgba(26, 26, 26, 0)', // Keeps it transparent initially
                         }
                         : phase === 'expand'
                             ? {
@@ -77,8 +79,8 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
                                 height: '100vh',
                                 padding: 0,
                                 borderWidth: 0,
-                                borderColor: 'rgba(255, 255, 255, 0)',
-                                backgroundColor: 'rgba(255, 255, 255, 1)', // Expands to pure white background
+                                borderColor: 'rgba(245, 245, 240, 0)',
+                                backgroundColor: 'rgba(245, 245, 240, 1)', // Expands to pure white background
                             }
                             : {}
                 }
@@ -93,7 +95,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
             >
                 {/* THE LOADING FILL */}
                 <motion.div
-                    className="h-full bg-white origin-left"
+                    className="h-full bg-off-white origin-left"
                     initial={{ width: '0%' }}
                     animate={
                         phase === 'start'
