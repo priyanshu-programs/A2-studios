@@ -16,7 +16,7 @@ const HERO_TEXT = "ATWO STUDIOS.";
 const LETTER_STAGGER = 0.04;
 const HERO_START = 0.5;
 const NAV_START = 1.2;
-const TAGLINE_START = 1.8;
+const TAGLINE_START = 0.8;
 const CTA_START = 2.2;
 const PARTICLE_COUNT = 35;
 
@@ -155,12 +155,12 @@ function MagneticButton({ children }: { children: string }) {
 
   return (
     <button
-      className="bg-[#050304] text-white px-8 py-3 rounded-[25px] text-xl tracking-wider transition-all duration-500 hover:bg-[#D60000] hover:mix-blend-color-burn pointer-events-auto overflow-hidden min-w-[200px]"
+      className="bg-off-black text-off-white px-8 py-3 rounded-[25px] text-xl tracking-wider transition-all duration-500 hover:bg-[#D60000] hover:mix-blend-color-burn pointer-events-auto overflow-hidden min-w-[200px]"
       onMouseEnter={() => { setIsHovered(true); setKey(k => k + 1); }}
       onMouseLeave={() => setIsHovered(false)}
     >
       {isHovered ? (
-        <TextRoll key={key} duration={0.25} transition={{ ease: [0.32, 0.72, 0, 1] }} exitClassName="text-white">
+        <TextRoll key={key} duration={0.25} transition={{ ease: [0.32, 0.72, 0, 1] }} exitClassName="text-off-white">
           {children}
         </TextRoll>
       ) : (
@@ -178,10 +178,12 @@ function WordReveal({
   text,
   baseDelay,
   className,
+  loading = false,
 }: {
   text: string;
   baseDelay: number;
   className?: string;
+  loading?: boolean;
 }) {
   const words = text.split(' ');
   return (
@@ -191,7 +193,7 @@ function WordReveal({
           <motion.span
             className="word-clip-inner inline-block"
             initial={{ y: '110%' }}
-            animate={{ y: '0%' }}
+            animate={!loading ? { y: '0%' } : {}}
             transition={{
               duration: 0.8,
               delay: baseDelay + i * 0.08,
@@ -312,15 +314,15 @@ export default function App() {
 
       <div
         ref={containerRef}
-        className="relative w-full min-h-[200vh] bg-white overflow-x-hidden font-coolvetica-condensed selection:bg-[#D60000] selection:text-white"
+        className="relative w-full min-h-[200vh] bg-off-white overflow-x-hidden font-coolvetica-condensed selection:bg-[#D60000] selection:text-off-white"
       >
         {/* ═══ FIXED NAVIGATION ═══ */}
         <motion.nav
           className={`fixed z-[100] flex flex-col transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] top-[30px] md:top-[50px] left-1/2 -translate-x-1/2 w-[calc(100%-40px)] md:w-[calc(100%-122px)] max-w-[1318px] 
             /* On mobile: ALWAYS floating pill style. On desktop: Floating pill ONLY when scrolled */
             ${!isScrolled
-              ? 'bg-white/70 backdrop-blur-md px-6 py-4 rounded-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-black/5 md:bg-transparent md:px-0 md:py-0 md:rounded-none md:shadow-none md:border-transparent md:backdrop-blur-none'
-              : 'bg-white/70 backdrop-blur-md px-6 py-4 md:px-10 md:py-5 rounded-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-black/5'
+              ? 'bg-off-white/70 backdrop-blur-md px-6 py-4 rounded-[24px] shadow-[0_8px_32px_rgba(26,26,26,0.1)] border border-off-black/5 md:bg-transparent md:px-0 md:py-0 md:rounded-none md:shadow-none md:border-transparent md:backdrop-blur-none'
+              : 'bg-off-white/70 backdrop-blur-md px-6 py-4 md:px-10 md:py-5 rounded-[24px] shadow-[0_8px_32px_rgba(26,26,26,0.1)] border border-off-black/5'
             }`}
           initial={{ y: -100, opacity: 0 }}
           animate={!loading ? { y: 0, opacity: 1 } : {}}
@@ -340,24 +342,24 @@ export default function App() {
 
             {/* Links Container (Desktop Middle) */}
             <div className={`hidden md:flex flex-grow items-center transition-all duration-500 ${isScrolled ? 'justify-evenly px-4 xl:px-8' : 'justify-start'}`}>
-              <div className={`hidden md:block text-black text-xl tracking-wide transition-all duration-500 ${isScrolled ? '' : 'ml-6 md:ml-12'}`}>
+              <div className={`hidden md:block text-off-black text-xl tracking-wide transition-all duration-500 ${isScrolled ? '' : 'ml-6 md:ml-12'}`}>
                 <MagneticLink>ABOUT US</MagneticLink>
               </div>
 
-              <div className={`hidden md:block text-black text-xl tracking-wide transition-all duration-500 ${isScrolled ? '' : 'ml-8'}`}>
+              <div className={`hidden md:block text-off-black text-xl tracking-wide transition-all duration-500 ${isScrolled ? '' : 'ml-8'}`}>
                 <MagneticLink>WORK</MagneticLink>
               </div>
 
               {/* Spacer visible ONLY when NOT scrolled to push Services to the right */}
               <div className={`transition-all duration-500 ${isScrolled ? 'hidden' : 'flex-grow'}`} />
 
-              <div className="hidden md:block text-black text-xl tracking-wide transition-all duration-500">
+              <div className="hidden md:block text-off-black text-xl tracking-wide transition-all duration-500">
                 <MagneticLink>SERVICES</MagneticLink>
               </div>
             </div>
 
             {/* Contact Us (Desktop Far Right) */}
-            <div className={`hidden md:flex items-center shrink-0 text-black text-xl tracking-wide transition-all duration-500 ${isScrolled ? '' : 'ml-8'}`}>
+            <div className={`hidden md:flex items-center shrink-0 text-off-black text-xl tracking-wide transition-all duration-500 ${isScrolled ? '' : 'ml-8'}`}>
               <MagneticLink>CONTACT US</MagneticLink>
             </div>
 
@@ -365,7 +367,7 @@ export default function App() {
             <div className="md:hidden flex items-center shrink-0">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-black p-1 focus:outline-none"
+                className="text-off-black p-1 focus:outline-none"
                 aria-label="Toggle mobile menu"
               >
                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -383,16 +385,16 @@ export default function App() {
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 className="md:hidden overflow-hidden w-full flex flex-col items-center gap-4 pb-2"
               >
-                <div className="text-black text-xl tracking-wide w-full text-center hover:bg-black/5 py-2 rounded-lg transition-colors">
+                <div className="text-off-black text-xl tracking-wide w-full text-center hover:bg-off-off-black/5 py-2 rounded-lg transition-colors">
                   <MagneticLink>ABOUT US</MagneticLink>
                 </div>
-                <div className="text-black text-xl tracking-wide w-full text-center hover:bg-black/5 py-2 rounded-lg transition-colors">
+                <div className="text-off-black text-xl tracking-wide w-full text-center hover:bg-off-off-black/5 py-2 rounded-lg transition-colors">
                   <MagneticLink>WORK</MagneticLink>
                 </div>
-                <div className="text-black text-xl tracking-wide w-full text-center hover:bg-black/5 py-2 rounded-lg transition-colors">
+                <div className="text-off-black text-xl tracking-wide w-full text-center hover:bg-off-off-black/5 py-2 rounded-lg transition-colors">
                   <MagneticLink>SERVICES</MagneticLink>
                 </div>
-                <div className="text-black text-xl tracking-wide w-full text-center hover:bg-black/5 py-2 rounded-lg transition-colors">
+                <div className="text-off-black text-xl tracking-wide w-full text-center hover:bg-off-off-black/5 py-2 rounded-lg transition-colors">
                   <MagneticLink>CONTACT US</MagneticLink>
                 </div>
               </motion.div>
@@ -408,7 +410,7 @@ export default function App() {
             {/* ═══ BACKGROUND IMAGE with PARALLAX and BLUR ═══ */}
             <motion.div
               className="absolute inset-[-30px]"
-              style={{ x: bgX, y: bgY }}
+              style={{ x: bgX, y: bgY, scale: useTransform(smoothProgress, [0, 1], [1, 1.2]) }}
             >
               <MotionImage
                 src="https://res.cloudinary.com/ddooeqf5m/image/upload/v1772986604/final_hero_fiaghh.png"
@@ -428,7 +430,7 @@ export default function App() {
               />
               {/* Dark overlay that fades in on scroll */}
               <motion.div
-                className="absolute inset-0 bg-black pointer-events-none"
+                className="absolute inset-0 bg-off-black pointer-events-none"
                 style={{ opacity: darkOverlayOpacity }}
               />
             </motion.div>
@@ -443,7 +445,7 @@ export default function App() {
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 mix-blend-difference pointer-events-none w-full text-center flex justify-center items-center"
               style={{ scale: titleScale, opacity: titleOpacity, willChange: 'transform, opacity' }}
             >
-              <h1 className="font-coolvetica-heavy text-[22vw] md:text-[280px] lg:text-[367px] leading-[0.8] text-white tracking-normal whitespace-nowrap select-none" style={{ willChange: "transform" }}>
+              <h1 className="font-coolvetica-heavy text-[22vw] md:text-[280px] lg:text-[367px] leading-[0.8] text-off-white tracking-normal whitespace-nowrap select-none" style={{ willChange: "transform" }}>
                 {heroLetters.map((letter, i) => (
                   <span key={i} className="letter-mask">
                     <motion.span
@@ -476,19 +478,19 @@ export default function App() {
               <div className="max-w-[1318px] mx-auto w-full text-left relative">
                 {/* Difference Layer */}
                 <motion.div
-                  className="mix-blend-difference text-white"
+                  className="mix-blend-difference text-off-white"
                   style={{ opacity: lowerOpacity }}
                 >
                   <p className="text-[clamp(16px,2vw,20px)] tracking-wider leading-tight">
-                    <WordReveal text="NO CAMERA, NO CREW." baseDelay={TAGLINE_START} />
+                    <WordReveal text="NO CAMERA, NO CREW." baseDelay={TAGLINE_START} loading={loading} />
                     <br />
-                    <WordReveal text="JUST CREATIVE DIRECTION." baseDelay={TAGLINE_START + 0.25} />
+                    <WordReveal text="JUST CREATIVE DIRECTION." baseDelay={TAGLINE_START + 0.25} loading={loading} />
                   </p>
                   <p className="text-[clamp(18px,2.5vw,24px)] tracking-wider leading-tight mt-4 md:mt-6">
-                    <WordReveal text="STAND OUT," baseDelay={TAGLINE_START + 0.5} />
+                    <WordReveal text="STAND OUT," baseDelay={TAGLINE_START + 0.5} loading={loading} />
                     {' '}
                     <span className="relative inline-block">
-                      <WordReveal text="DONT BLEND IN" baseDelay={TAGLINE_START + 0.65} />
+                      <WordReveal text="DONT BLEND IN" baseDelay={TAGLINE_START + 0.65} loading={loading} />
                     </span>
                     <span className="word-clip inline-block overflow-hidden align-top">
                       <motion.span
@@ -513,9 +515,9 @@ export default function App() {
                   style={{ opacity: lowerOpacity }}
                 >
                   <p className="text-[clamp(16px,2vw,20px)] tracking-wider leading-tight opacity-0 select-none">
-                    <StaticWordReveal text="NO CAMERA, NO CREW." />
+                    <WordReveal text="NO CAMERA, NO CREW." baseDelay={TAGLINE_START} loading={loading} />
                     <br />
-                    <StaticWordReveal text="JUST CREATIVE DIRECTION." />
+                    <WordReveal text="JUST CREATIVE DIRECTION." baseDelay={TAGLINE_START + 0.25} loading={loading} />
                   </p>
                   <p className="text-[clamp(18px,2.5vw,24px)] tracking-wider leading-tight mt-4 md:mt-6">
                     <span className="opacity-0 select-none"><StaticWordReveal text="STAND OUT," /></span>
@@ -528,7 +530,7 @@ export default function App() {
                         animate={!loading ? { width: '100%' } : {}}
                         transition={{
                           duration: 0.6,
-                          delay: TAGLINE_START - 0.9, // 2s earlier than previous TAGLINE_START + 1.1
+                          delay: TAGLINE_START + 1.1,
                           ease: [0.22, 1, 0.36, 1],
                         }}
                       />
@@ -564,8 +566,8 @@ export default function App() {
         </div>
 
         {/* ═══ DUMMY CONTENT FOR SCROLLING DEMO ═══ */}
-        <div className="w-full h-screen bg-[#FDFDFD] flex items-center justify-center relative border-t border-black/5">
-          <h2 className="text-4xl text-black font-coolvetica-heavy tracking-wider opacity-30">SCROLL DOWN MORE</h2>
+        <div className="w-full h-screen bg-off-white flex items-center justify-center relative border-t border-off-black/5">
+          <h2 className="text-4xl text-off-black font-coolvetica-heavy tracking-wider opacity-30">SCROLL DOWN MORE</h2>
           <FloatingParticles />
         </div>
       </div >

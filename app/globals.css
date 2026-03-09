@@ -18,6 +18,8 @@
 @theme {
   --font-coolvetica-heavy: "Coolvetica Heavy Compressed", sans-serif;
   --font-coolvetica-condensed: "Coolvetica Condensed", sans-serif;
+  --color-off-black: #1A1A1A;
+  --color-off-white: #F5F5F0;
 }
 
 /* ═══════════════════════════════════════════
@@ -34,7 +36,7 @@
   left: 0;
   width: 8px;
   height: 8px;
-  background: white;
+  background: var(--color-off-white);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
@@ -48,7 +50,7 @@
   left: 0;
   width: 40px;
   height: 40px;
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  border: 1.5px solid rgba(245, 245, 240, 0.6);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
@@ -107,7 +109,7 @@
   position: absolute;
   width: 3px;
   height: 3px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(245, 245, 240, 0.15);
   border-radius: 50%;
   pointer-events: none;
   mix-blend-mode: difference;
@@ -181,7 +183,7 @@
 
 ::selection {
   background: #D60000;
-  color: white;
+  color: var(--color-off-white);
 }
 
 /* ═══════════════════════════════════════════
